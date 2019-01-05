@@ -1,0 +1,29 @@
+{
+  "name": "basic-video",
+  "version": "0.0.1",
+  "description": "Basic Video Player wrapper utilizing the MediaElement API",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/register": "^7.0.0",
+    "babel-preset-env": "^1.7.0",
+    "jsdom": "^13.1.0",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha --require @babel/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CurtisConway/basic-video.git"
+  },
+  "author": "Curtis Conway",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CurtisConway/basic-video/issues"
+  },
+  "homepage": "https://github.com/CurtisConway/basic-video#readme"
+}
