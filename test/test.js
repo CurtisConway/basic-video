@@ -33,4 +33,50 @@ describe('Basic Video', function () {
 
         assert.equal(basicVideo.currentSource, basicVideo.sources[1].src);
     });
+
+    // it('can play media', function(){
+    //     basicVideo.play();
+    //
+    //     assert.true(basicVideo.isPlaying);
+    // });
+    //
+    // it('can pause media', function(){
+    //     basicVideo.pause();
+    //
+    //     assert.false(basicVideo.isPlaying);
+    // });
+
+    it('can change the media volume', function(){
+        basicVideo.currentVolume = 0.75;
+
+        assert.equal(basicVideo.currentVolume, 0.75);
+    });
+
+    it('can mute the media', function(){
+        basicVideo.isMuted = true;
+
+        assert.equal(basicVideo.isMuted, true);
+    });
+
+    it('can unmute the media', function(){
+        basicVideo.isMuted = false;
+
+        assert.equal(basicVideo.isMuted, false);
+    });
+
+    it('can get the total media duration', function(){
+        assert.equal(basicVideo.totalDuration, 29)
+    });
+
+    it('can get and set the current time', function(){
+        basicVideo.currentTime = 10;
+
+        assert.equal(basicVideo.currentTime, 10)
+    });
+
+    it('can get and set the playback rate', function(){
+        basicVideo.playbackRate = 0.75;
+
+        assert.equal(basicVideo.playbackRate, 0.75);
+    });
 });

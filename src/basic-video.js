@@ -45,4 +45,67 @@ export default class {
     set poster(poster){
        this.MediaElement.poster = poster || '';
     }
+
+    /**
+     * @returns {number}
+     */
+    get currentVolume() {
+        return this.MediaElement.volume;
+    }
+
+    /**
+     * @param {number} volume - Number between 0 and 1
+     */
+    set currentVolume(volume) {
+        this.MediaElement.volume = volume || 0.5;
+    }
+
+    /**
+     * @returns {boolean}
+     */
+    get isMuted(){
+        return this.MediaElement.muted;
+    }
+
+    /**
+     * @param {boolean} muted
+     */
+    set isMuted(muted){
+        this.MediaElement.muted = muted || false;
+    }
+
+    /**
+     * @returns {number} - Total duration of the media in seconds
+     */
+    get totalDuration(){
+        return this.MediaElement.duration;
+    }
+
+    /**
+     * @returns {number} - Current time in seconds
+     */
+    get currentTime(){
+        return this.MediaElement.currentTime;
+    }
+
+    /**
+     * @param {number} time - time to seek to in seconds
+     */
+    set currentTime(time){
+        this.MediaElement.currentTime = time || 0;
+    }
+
+    /**
+     * @returns {number}
+     */
+    get playbackRate(){
+        return this.MediaElement.playbackRate;
+    }
+
+    /**
+     * @param {number} rate - Number to determine the speed of playback. 1 = 100%.
+     */
+    set playbackRate(rate){
+        this.MediaElement.playbackRate = rate || 1;
+    }
 }
