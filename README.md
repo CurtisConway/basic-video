@@ -1,10 +1,13 @@
-#Basic Video Player
+Basic Video Player
+===
 
 A simple and consistient API wrapper for the HTMLMediaElement API
 
 Supports all default features for `<video>` and `<audio>` tags, with some additional functionality.
 
-###Props
+Props
+---
+
 | Prop             | Type      | Get | Set | Info |
 |------------------|-----------|-----|-----|------|
 | currentSource    | String    | x   | x   | Current media source being played
@@ -19,11 +22,14 @@ Supports all default features for `<video>` and `<audio>` tags, with some additi
 | currentProgress  | Number    | x   |     | The current progress percentage of the media
 | playbackRate     | Number    | x   | x   | The playback rate of the media (1 for normal, 0.5 for half etc...)
 
-###Methods
+Methods
+---
+
 | Method           | Params    | Returns | Info |
 |------------------|-----------|---------|------|
 | forceLoad        |           | Promise | Forces the player to reload the media, returns a promise that resolves when the isReady prop returns true. Times itself out after 5 minutes.
 | play             |           |         | Play the media
 | pause            |           |         | Pause the media
 
-###Events
+Events
+---
