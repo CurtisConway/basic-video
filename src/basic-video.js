@@ -1,4 +1,4 @@
-export default class {
+export default class BasicVideo {
     /**
      * Construct a Basic Video Player
      *
@@ -13,11 +13,13 @@ export default class {
         defaultSource = 0
     }){
         this.MediaElement = element;
-        this.MediaElement.controls = false;
+        this.MediaElement.controls = true;
+        this.MediaElement.playsinline = true;
         this.sources = sources;
         this.currentSource = sources[defaultSource] ? sources[defaultSource].src : '';
         this.poster = poster;
         this.isPlaying = false;
+        this.loading = false;
 
         console.log(this);
     }
@@ -82,6 +84,12 @@ export default class {
         this.MediaElement.muted = muted || false;
     }
 
+    /**
+     * @returns {boolean}
+     */
+    get isLoading(){
+        return this.loading;
+    }
 
     /**
      * @returns {boolean}
@@ -153,7 +161,6 @@ export default class {
 
                 if(this.isReady){
                     resolve(this.isReady);
-
                     clearInterval(interval);
                 }
 
@@ -169,8 +176,10 @@ export default class {
      * Play
      */
     play(){
-        this.MediaElement.play();
         this.isPlaying = true;
+        this.MediaElement.play().catch(() => {
+            console.log(this.readyState);
+        });
     }
 
     /**

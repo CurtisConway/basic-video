@@ -3,17 +3,27 @@ import BasicVideo from './src/basic-video.js';
 document.addEventListener('DOMContentLoaded', function () {
     const mediaElement = document.getElementById('player');
     const basicVideo = new BasicVideo(mediaElement, {
-        poster: 'https://dmmior4id2ysr.cloudfront.net/assets/docs/poster.jpg',
+        poster: 'https://i.vimeocdn.com/video/749166331.jpg',
         sources: [
             {
-                src: 'https://dmmior4id2ysr.cloudfront.net/assets/docs/Splash_Short_Version_1080.mp4',
+                src: 'https://player.vimeo.com/external/308908354.hd.mp4?s=d93801291faee691b318e7d12bad2dbb222cf93f&profile_id=175',
                 type: 'video/mp4',
                 label: '1080p'
             },
             {
-                src: 'https://dmmior4id2ysr.cloudfront.net/assets/docs/Splash_Short_Version_540.mp4',
+                src: 'https://player.vimeo.com/external/308908354.hd.mp4?s=d93801291faee691b318e7d12bad2dbb222cf93f&profile_id=174',
+                type: 'video/mp4',
+                label: '720p'
+            },
+            {
+                src: 'https://player.vimeo.com/external/308908354.sd.mp4?s=16821499a6f70001a224aefbb4717b6886be2953&profile_id=165',
                 type: 'video/mp4',
                 label: '540p'
+            },
+            {
+                src: 'https://player.vimeo.com/external/308908354.sd.mp4?s=16821499a6f70001a224aefbb4717b6886be2953&profile_id=164',
+                type: 'video/mp4',
+                label: '360p'
             }
         ]
     });
@@ -32,10 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
             basicVideo.pause();
         }
         if(elementClicked.getAttribute('id') === 'forward'){
-            basicVideo.currentTime += 10;
+            basicVideo.currentTime += 1;
         }
         if(elementClicked.getAttribute('id') === 'backward'){
-            basicVideo.currentTime -= 10;
+            basicVideo.currentTime -= 1;
         }
     });
 
@@ -57,7 +67,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     playbackSourceSelector.addEventListener('change', event => {
         const currentTime = basicVideo.currentTime;
-        basicVideo.currentSource =  event.target.value;
+        const currentPlaybackRate = basicVideo.playbackRate;
+
+        basicVideo.currentSource = event.target.value;
+        basicVideo.playbackRate = currentPlaybackRate;
         basicVideo.currentTime = currentTime;
     });
 });
