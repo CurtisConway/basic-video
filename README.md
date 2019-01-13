@@ -11,12 +11,32 @@ Getting Started
 ---
 
 `npm install basic-video`
+```html
+<video id="player" preload="auto" controls>
+```
 
 ```javascript
 import BasicVideo from 'basic-video';
 
 const basicVideo = new BasicVideo(document.getElementById('player'), {
-    
+    poster: 'https://d292x7cpdimrbp.cloudfront.net/video/poster.jpg',
+    sources: [
+        {
+            src: 'https://d292x7cpdimrbp.cloudfront.net/video/1080.mp4',
+            type: 'video/mp4',
+            label: '1080'
+        },
+        {
+            src: 'https://d292x7cpdimrbp.cloudfront.net/video/720.mp4',
+            type: 'video/mp4',
+            label: '720'
+        },
+        {
+            src: 'https://d292x7cpdimrbp.cloudfront.net/video/480.mp4',
+            type: 'video/mp4',
+            label: '480'
+        },
+    ],
 });
 ```
 
