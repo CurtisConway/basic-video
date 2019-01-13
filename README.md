@@ -14,12 +14,10 @@ Getting Started
 ```html
 <video id="player" preload="auto" controls>
 ```
-
+###### MP4
 ```javascript
 import BasicVideo from 'basic-video';
 
-
-// MP4
 const basicVideo = new BasicVideo(document.getElementById('player'), {
     poster: 'https://d292x7cpdimrbp.cloudfront.net/video/poster.jpg',
     sources: [
@@ -40,8 +38,12 @@ const basicVideo = new BasicVideo(document.getElementById('player'), {
         },
     ],
 });
+```
 
-// HLS
+###### HLS
+```javascript
+import BasicVideo from 'basic-video';
+
 const basicVideo = new BasicVideo(document.getElementById('player'), {
     poster: 'https://d292x7cpdimrbp.cloudfront.net/video/poster.jpg',
     hlsManifestUrl: 'https://d292x7cpdimrbp.cloudfront.net/video/video.m3u8',
