@@ -23,6 +23,14 @@ const basicVideo = new BasicVideo(document.getElementById('player'), {
 Getters/Setters
 ---
 
+```javascript
+//Get
+const currentTime = basicVideo.currentTime;
+
+//Set
+basicVideo.currentTime = 30;
+```
+
 | Prop                   | Type      | Get | Set | Info |
 |------------------------|-----------|-----|-----|------|
 | currentSource          | String    | x   | x   | Current media source being played
@@ -41,6 +49,9 @@ Getters/Setters
 
 Methods
 ---
+```javascript
+basicVideo.play();
+```
 
 | Method               | Params               | Returns | Info |
 |----------------------|----------------------|---------|------|
@@ -53,9 +64,12 @@ Methods
 
 Events
 ---
+
+All events are emit from the MediaElement object (the `<video>` element you injected into the player).
+
 | Event                | Info                 |
 |----------------------|----------------------|
-| init                 | called after the init function resolves
+| init                 | emit after the init function resolves
 
 You can also hook into all of the DOM Events available to the [HTMLMediaElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement)
 
