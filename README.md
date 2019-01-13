@@ -1,7 +1,7 @@
-Basic Video Player
+Basic Video
 ===
 
-A simple and consistient API wrapper for the HTMLMediaElement API
+A simple and consistient API wrapper for web video playback
 
 Supports all default features for `<video>` and `<audio>` tags, with some additional functionality.
 
