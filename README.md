@@ -1,7 +1,7 @@
 Basic Video
 ===
 
-A simple and consistient API wrapper for web video playback
+A simple and consistient API for web video playback
 
 Supports all default features for `<video>` and `<audio>` tags, with some additional functionality.
 
