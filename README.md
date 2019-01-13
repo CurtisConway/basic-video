@@ -18,6 +18,8 @@ Getting Started
 ```javascript
 import BasicVideo from 'basic-video';
 
+
+// MP4
 const basicVideo = new BasicVideo(document.getElementById('player'), {
     poster: 'https://d292x7cpdimrbp.cloudfront.net/video/poster.jpg',
     sources: [
@@ -37,6 +39,12 @@ const basicVideo = new BasicVideo(document.getElementById('player'), {
             label: '480'
         },
     ],
+});
+
+// HLS
+const basicVideo = new BasicVideo(document.getElementById('player'), {
+    poster: 'https://d292x7cpdimrbp.cloudfront.net/video/poster.jpg',
+    hlsManifestUrl: 'https://d292x7cpdimrbp.cloudfront.net/video/video.m3u8',
 });
 ```
 
