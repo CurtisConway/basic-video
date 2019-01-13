@@ -3,30 +3,25 @@ import BasicVideo from './basic-video.js';
 document.addEventListener('DOMContentLoaded', function () {
     const mediaElement = document.getElementById('player');
     const basicVideo = new BasicVideo(mediaElement, {
-        poster: 'https://i.vimeocdn.com/video/749166331.jpg',
+        poster: 'https://d292x7cpdimrbp.cloudfront.net/video/poster.jpg',
         sources: [
             {
-                src: 'https://player.vimeo.com/external/308908354.hd.mp4?s=d93801291faee691b318e7d12bad2dbb222cf93f&profile_id=175',
+                src: 'https://d292x7cpdimrbp.cloudfront.net/video/1080.mp4',
                 type: 'video/mp4',
-                label: '1080p'
+                label: '1080'
             },
             {
-                src: 'https://player.vimeo.com/external/308908354.hd.mp4?s=d93801291faee691b318e7d12bad2dbb222cf93f&profile_id=174',
+                src: 'https://d292x7cpdimrbp.cloudfront.net/video/720.mp4',
                 type: 'video/mp4',
-                label: '720p'
+                label: '720'
             },
             {
-                src: 'https://player.vimeo.com/external/308908354.sd.mp4?s=16821499a6f70001a224aefbb4717b6886be2953&profile_id=165',
+                src: 'https://d292x7cpdimrbp.cloudfront.net/video/480.mp4',
                 type: 'video/mp4',
-                label: '540p'
+                label: '480'
             },
-            {
-                src: 'https://player.vimeo.com/external/308908354.sd.mp4?s=16821499a6f70001a224aefbb4717b6886be2953&profile_id=164',
-                type: 'video/mp4',
-                label: '360p'
-            }
         ],
-        hlsManifestUrl: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8'
+        hlsManifestUrl: 'https://d292x7cpdimrbp.cloudfront.net/video/video.m3u8'
     });
     const videoProgress = document.getElementById('progress');
     const playbackRateSelector = document.getElementById('rate');

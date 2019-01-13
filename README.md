@@ -5,6 +5,21 @@ A simple and consistient API for web video playback
 
 Supports all default features for `<video>` and `<audio>` tags, with some additional functionality.
 
+This repo exists solely as an API layer around the default HTMLMediaElement. It's sole purpose is to provide basic video playback for a developer to create their own custom video player.
+
+Getting Started
+---
+
+`npm install basic-video`
+
+```javascript
+import BasicVideo from 'basic-video';
+
+const basicVideo = new BasicVideo(document.getElementById('player'), {
+    
+});
+```
+
 Getters/Setters
 ---
 

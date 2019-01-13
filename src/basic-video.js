@@ -34,9 +34,6 @@ export default class BasicVideo {
                 this.loading = false;
                 this.MediaElement.dispatchEvent(new CustomEvent('init'));
             });
-
-        window.BV = this;
-        console.log(this);
     }
 
     /**
