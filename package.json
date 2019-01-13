@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "description": "Basic Video Player wrapper utilizing the MediaElement API",
   "main": "index.js",
+  "scripts": {
+    "bundle": "node_modules/.bin/webpack --config=webpack.config.js"
+  },
   "directories": {
     "test": "test"
   },
@@ -12,7 +15,9 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "jsdom": "^13.1.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
   },
   "repository": {
     "type": "git",
@@ -23,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/CurtisConway/basic-video/issues"
   },
-  "homepage": "https://github.com/CurtisConway/basic-video#readme"
+  "homepage": "https://github.com/CurtisConway/basic-video#readme",
+  "dependencies": {
+    "hls.js": "^0.12.2"
+  }
 }

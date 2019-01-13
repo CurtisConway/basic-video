@@ -1,4 +1,4 @@
-import BasicVideo from './src/basic-video.js';
+import BasicVideo from './basic-video.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const mediaElement = document.getElementById('player');
@@ -25,11 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 type: 'video/mp4',
                 label: '360p'
             }
-        ]
+        ],
+        hlsManifestUrl: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8'
     });
     const videoProgress = document.getElementById('progress');
     const playbackRateSelector = document.getElementById('rate');
     const playbackSourceSelector = document.getElementById('sources');
+    const currentTimeDisplay = document.getElementById('currentTime');
     let currentTime = 0;
 
     document.body.addEventListener('click', event => {
@@ -51,26 +53,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     basicVideo.MediaElement.addEventListener('timeupdate', event => {
         videoProgress.setAttribute('value', basicVideo.currentProgress * 100);
+        currentTimeDisplay.innerHTML = Math.floor(basicVideo.currentTime);
     });
 
     playbackRateSelector.addEventListener('change', event => {
         basicVideo.playbackRate = event.target.value;
     });
 
-    basicVideo.sources.forEach(source => {
-        let option = document.createElement('option');
-        option.setAttribute('value', source.src);
-        option.innerHTML = source.label;
+    basicVideo.MediaElement.addEventListener('init', event => {
+        basicVideo.playbackQualities.forEach(source => {
+            let option = document.createElement('option');
+            option.setAttribute('value', source.src);
+            option.innerHTML = source.label;
 
-        playbackSourceSelector.appendChild(option);
-    });
+            let currentQuality = basicVideo.currentPlaybackQuality === -1 ?
+                basicVideo.HLSInstance.startLevel :
+                basicVideo.currentPlaybackQuality;
 
-    playbackSourceSelector.addEventListener('change', event => {
-        const currentTime = basicVideo.currentTime;
-        const currentPlaybackRate = basicVideo.playbackRate;
+            if(source.src === currentQuality){
+                option.setAttribute('selected', 'selected');
+            }
 
-        basicVideo.currentSource = event.target.value;
-        basicVideo.playbackRate = currentPlaybackRate;
-        basicVideo.currentTime = currentTime;
+            playbackSourceSelector.appendChild(option);
+        });
+
+        playbackSourceSelector.addEventListener('change', event => {
+            basicVideo.currentPlaybackQuality = event.target.value;
+        });
     });
 });

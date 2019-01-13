@@ -6,21 +6,36 @@ export default class BasicVideo {
      * @param {string} poster
      * @param {array} sources
      * @param {string|number} defaultSource
+     * @param {string} hlsManifestUrl
      */
     constructor(element, {
         poster,
         sources,
-        defaultSource = 0
+        defaultSource = 0,
+        hlsManifestUrl,
     }){
         this.MediaElement = element;
         this.MediaElement.controls = true;
         this.MediaElement.playsinline = true;
         this.sources = sources;
-        this.currentSource = sources[defaultSource] ? sources[defaultSource].src : '';
         this.poster = poster;
         this.isPlaying = false;
-        this.loading = false;
+        this.loading = true;
+        this.defaultSource = defaultSource;
+        this.HLSManifestURL = hlsManifestUrl;
+        this.HLSisSupported = null;
+        this.HLSInstance = null;
 
+        this.MediaElement.addEventListener('play', () => { this.isPlaying = true; });
+        this.MediaElement.addEventListener('pause', () => { this.isPlaying = false; });
+
+        this.init()
+            .then(init => {
+                this.loading = false;
+                this.MediaElement.dispatchEvent(new CustomEvent('init'));
+            });
+
+        window.BV = this;
         console.log(this);
     }
 
@@ -147,6 +162,62 @@ export default class BasicVideo {
     }
 
     /**
+     * @returns {array}
+     */
+    get playbackQualities(){
+        if(this.HLSInstance != null){
+            return this.HLSInstance.levels.map((level, index) => {
+                return {
+                    label: level.name,
+                    src: index
+                }
+            });
+        }
+
+        return this.sources.map((source, index) => {
+            return {
+                label: source.label,
+                src: index
+            }
+        });
+    }
+
+    /**
+     * @returns {number}
+     */
+    get currentPlaybackQuality(){
+        if(this.HLSInstance != null){
+            return this.HLSInstance.currentLevel;
+        }
+        else {
+            const sourceStrings = this.sources.map(source => source.src);
+            return sourceStrings.indexOf(this.currentSource);
+        }
+    }
+
+    /**
+     * @param {number} quality - Index in the sources/qualities array to load.
+     */
+    set currentPlaybackQuality(quality){
+        if(this.HLSInstance != null){
+            this.HLSInstance.currentLevel = quality;
+        }
+        else {
+            const currentTime = this.currentTime;
+            const currentPlaybackRate = this.playbackRate;
+
+            this.currentSource = this.sources[quality].src;
+
+            this.playbackRate = currentPlaybackRate;
+            this.currentTime = currentTime;
+
+            if(this.isPlaying){
+                this.play();
+            }
+        }
+    }
+
+    /**
      * Force reload the contents of the player (may reset the currentTime back to 0)
      *
      * @returns {Promise} - resolved when the player reaches it's isReady state - rejected after 5 minutes
@@ -173,10 +244,41 @@ export default class BasicVideo {
     }
 
     /**
+     * Initialize the Player
+     *
+     * @static
+     * @returns {Promise}
+     */
+    init(){
+        return new Promise(resolve => {
+            if(this.HLSManifestURL){
+                BasicVideo.loadHlsJs()
+                    .then(loaded => {
+                        if (loaded) {
+                            this.HLSisSupported = window.Hls.isSupported();
+
+                            if(this.HLSisSupported){
+                                this.attachHls(this.HLSManifestURL).then(initialized => {
+                                    resolve(true);
+                                });
+                            }
+                            else {
+                                resolve(false);
+                            }
+                        }
+                    });
+            }
+            else {
+                this.currentSource = this.sources[this.defaultSource] ? this.sources[this.defaultSource].src : '';
+                resolve(true);
+            }
+        })
+    }
+
+    /**
      * Play
      */
     play(){
-        this.isPlaying = true;
         this.MediaElement.play().catch(() => {
             console.log(this.readyState);
         });
@@ -186,7 +288,62 @@ export default class BasicVideo {
      * Pause
      */
     pause(){
-        this.isPlaying = false;
         this.MediaElement.pause();
+    }
+
+    /**
+     * Load the hls.js library and append it to the dom
+     *
+     * I do this because the library is over 200KB minified, seems like overkill to include if the
+     * user only wants to load simple mp4s etc..
+     *
+     * @static
+     * @returns {Promise}
+     */
+    static loadHlsJs(){
+        return new Promise(resolve => {
+            if(!document.getElementById('hlsJS')){
+                const script = document.createElement('script');
+
+                script.setAttribute('id', 'hlsJS');
+                script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/hls.js@latest');
+
+                document.body.appendChild(script);
+
+                script.addEventListener('load', () => {
+                    resolve(true);
+                });
+            } else {
+                resolve(true);
+            }
+        });
+    }
+
+    /**
+     * Attach an hls.js instance to the video player
+     *
+     * @param manifest
+     * @returns {Promise}
+     */
+    attachHls(manifest){
+        this.HLSInstance = new Hls();
+
+        return new Promise(resolve => {
+            this.HLSInstance.attachMedia(this.MediaElement);
+
+            // Attach Error Events to the Video Element
+            this.HLSInstance.on(Hls.Events.ERROR, (event, data) => {
+                this.MediaElement.dispatchEvent(new CustomEvent('HLSError', data));
+            });
+
+            // Load the Source
+            this.HLSInstance.on(Hls.Events.MEDIA_ATTACHED, () => {
+                this.HLSInstance.loadSource(manifest);
+
+                this.HLSInstance.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+                    resolve({event, data});
+                });
+            });
+        });
     }
 }

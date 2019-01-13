@@ -29,10 +29,10 @@ describe('Basic Video', function () {
         assert.equal(basicVideo.poster, 'https://dmmior4id2ysr.cloudfront.net/assets/docs/poster.jpg');
     });
 
-    it('can get and set the current source from the sources array', function () {
-        basicVideo.currentSource = basicVideo.sources[1].src;
+    it('can get and set the current quality', function () {
+        basicVideo.currentQuality = 1;
 
-        assert.equal(basicVideo.currentSource, basicVideo.sources[1].src);
+        assert.equal(basicVideo.currentQuality, 1);
     });
 
     it('can get the ready state', function(){
@@ -81,22 +81,12 @@ describe('Basic Video', function () {
     it('can get and set the current time', function(){
         basicVideo.currentTime = 10;
 
-        assert.equal(basicVideo.currentTime, 10)
+        assert.equal(basicVideo.currentTime, 10);
     });
 
     it('can get and set the playback rate', function(){
         basicVideo.playbackRate = 0.75;
 
         assert.equal(basicVideo.playbackRate, 0.75);
-    });
-
-    it('can play media', function(){
-        basicVideo.play();
-        assert.equal(basicVideo.isPlaying, true);
-    });
-
-    it('can pause media', function(){
-        basicVideo.pause();
-        assert.equal(basicVideo.isPlaying, false);
     });
 });
