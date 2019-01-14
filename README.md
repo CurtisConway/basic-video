@@ -7,6 +7,8 @@ Supports all default features for `<video>` and `<audio>` tags, with some additi
 
 This repo exists solely as an API layer around the default HTMLMediaElement. It's sole purpose is to provide basic video playback for a developer to create their own custom video player.
 
+To see a sample of the api with custom controls. Check out the [basic-video-player](https://github.com/CurtisConway/basic-video-player) repository.
+
 Getting Started
 ---
 
