@@ -69,7 +69,7 @@ basicVideo.currentTime = 30;
 | poster                 | String    | x   | x   | Poster on the video element
 | currentVolume          | Number    | x   | x   | Current volume of the media
 | buffered               | Object    | x   |     | TimeRanges object (buffered.start(0) and buffered.end(0) to get the range)
-| isMuted                | Boolean   | x   | x   | Mute status the player
+| isMuted                | Boolean   | x   | x   | Mute the player
 | isReady                | Boolean   | x   |     | Can the media play through without interruption
 | readyState             | Number    | x   |     | [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/readyState)
 | totalDuration          | Number    | x   |     | Total duration of the media in seconds
