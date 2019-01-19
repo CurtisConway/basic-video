@@ -30,7 +30,7 @@ export default class BasicVideo {
         this.MediaElement.addEventListener('pause', () => { this.isPlaying = false; });
 
         this.init()
-            .then(init => {
+            .then(() => {
                 this.loading = false;
                 this.MediaElement.dispatchEvent(new CustomEvent('init'));
             });
@@ -256,7 +256,9 @@ export default class BasicVideo {
 
                             if(this.HLSisSupported){
                                 this.attachHls(this.HLSManifestURL).then(initialized => {
-                                    resolve(true);
+                                    this.forceLoad().then(() => {
+                                        resolve(true);
+                                    });
                                 });
                             }
                             else {
@@ -267,7 +269,9 @@ export default class BasicVideo {
             }
             else {
                 this.currentSource = this.sources[this.defaultSource] ? this.sources[this.defaultSource].src : '';
-                resolve(true);
+                this.forceLoad().then(() => {
+                    resolve(true);
+                });
             }
         })
     }
