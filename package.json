@@ -1,6 +1,6 @@
 {
   "name": "basic-video",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Basic Video Player wrapper utilizing the MediaElement API",
   "main": "index.js",
   "scripts": {
