@@ -1,6 +1,6 @@
 export default class BasicVideo {
     /**
-     * Construct a Basic Video Player
+     * Construct a Basic Video Instance
      *
      * @param {HTMLElement|HTMLVideoElement|HTMLAudioElement} element
      * @param {string} poster
@@ -312,10 +312,13 @@ export default class BasicVideo {
                 document.body.appendChild(script);
 
                 script.addEventListener('load', () => {
+
                     resolve(true);
                 });
             } else {
-                resolve(true);
+                document.getElementById('hlsJS').addEventListener('load', () => {
+                    resolve(true);
+                });
             }
         });
     }
